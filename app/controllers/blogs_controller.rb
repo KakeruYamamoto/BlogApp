@@ -49,6 +49,10 @@ class BlogsController < ApplicationController#cotrollerは間接的にDBに指�
     redirect_to blogs_path, notice:"ブログを削除しました"
   end
 
+  def confirm
+    @blog = Blog.new(blog_params)
+  end
+  
   def update
     #@blog = Blog.find(params[:id])
     #blog_paramsは下記のprivateメソッドで定義されたものである。

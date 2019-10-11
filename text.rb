@@ -20,7 +20,7 @@ PATCH 既存のリソースを更新・変更・修正(リソースの部分置�
 3 $ rails db:create #DBを作成
 4 $ rails s #確認  localhost3000
 5 $ rails g controller blogs index #veiwファイルも確認（index.html.erb）blogsはコントロラ、命名の際は複数形、語尾はオプション（indexアクション制作）
-6 config/routes.rb =>  resources :blogs
+6 config/routes.rb =>  resources :blogs  #30参照
 7 rails g model blog #モデル名は単数！　このコマンドで下記のコマンドのファイルも作成」　カリキュラムでは　--skipオプションで飛ばしていた。そのオプションはDBのmigrate制作を飛ばす
 #$ rails g migration CreateBlogs #mgファイル名は慣例の命名規則に従い、目的＋命名で作成。ここからテーブルの設計をかく。記述後はdb:migrate
 #modelファイルにて、blog.rbを確認
@@ -284,13 +284,15 @@ end
 
 28 削除リンク　＆＆　確認ダイアログの表示data:{}  && method: delete
 
-#<>/
 
-<td><%= link_to "ブログを編集する", edit_blog_path(blog.id), data: { confirm: '本当に編集していいですか？' } %></td><!-- #data:{confirm~~~ で確認ダイアログを表示する。  -->
-<td><%= link_to "ブログを削除する" ,blog_path(blog.id),method: :delete,data: { confirm: '本当に削除していいですか？'} %></td><!-- link_toメソはデフォでHTTPメソのgetを呼び出すためそのメソッドをdeleteに変える必要がある。それがmethod:delete -->
+
+<td><%= link_to "ブログを編集する", edit_blog_path(blog.id), data: { confirm: '本当に編集していいですか？' } %>#</td><!-- #data:{confirm~~~ で確認ダイアログを表示する。  -->
+<td><%= link_to "ブログを削除する" ,blog_path(blog.id),method: :delete,data: { confirm: '本当に削除していいですか？'} %>#</td><!-- link_toメソはデフォでHTTPメソのgetを呼び出すためそのメソッドをdeleteに変える必要がある。それがmethod:delete -->
 </tr>
 <% end %>
 
+
+>
 29 フィードバックメッセージを表示　＊noticeは設定済み（controller参）
 
 /index.html.erb
@@ -298,6 +300,23 @@ end
 
 <h1>ブログ一覧</h1>
 
-<p><%= notice %></p>
+<p><%= notice %></p>#追加
 
 <table>
+
+
+30 routes.rb記述　新規入力後、確認画面を挟み込む
+
+/routes.rb
+
+
+Rails.application.routes.draw do
+
+  resources :blogs do
+    collection do #idを必要としない固有のルーティングを生成。
+      #member doを使うとidを必要とする固有のルーティングを生成。
+      #resources :blog とすると、どのパスにもideaを必要としないルーティングを生成できる。
+      post :confirm #HTTPメソにconfirmアクションを設定
+    end
+  end
+end
