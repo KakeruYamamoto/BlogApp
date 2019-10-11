@@ -281,10 +281,23 @@ def destroy
   redirect_to blogs_path, notice:"ブログを削除しました"
 end
 
-28 削除リンク　＆＆　確認ダイアログの表示data  && method: delete
+
+28 削除リンク　＆＆　確認ダイアログの表示data:{}  && method: delete
 
 #<>/
 
-<td><%= link_to "ブログを編集する",edit_blog_path(blog.id), deta: { confirm: '本当に編集していいですか？'} %></td><!-- #data:{confirm~~~ で確認ダイアログを表示する。  -->
+<td><%= link_to "ブログを編集する", edit_blog_path(blog.id), data: { confirm: '本当に編集していいですか？' } %></td><!-- #data:{confirm~~~ で確認ダイアログを表示する。  -->
 <td><%= link_to "ブログを削除する" ,blog_path(blog.id),method: :delete,data: { confirm: '本当に削除していいですか？'} %></td><!-- link_toメソはデフォでHTTPメソのgetを呼び出すためそのメソッドをdeleteに変える必要がある。それがmethod:delete -->
 </tr>
+<% end %>
+
+29 フィードバックメッセージを表示　＊noticeは設定済み（controller参）
+
+/index.html.erb
+
+
+<h1>ブログ一覧</h1>
+
+<p><%= notice %></p>
+
+<table>
