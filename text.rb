@@ -3,15 +3,15 @@
 
 HTTPメソッド　一覧
 
-GET　　リソースの取得
+GET　　リソースの取得 index new edit show #ページを持つもの かつ　prefixがある
 
-POST　　リソースの作成など
+POST　　リソースの作成など  create
 
-PUT　リソースの更新など((更新というよりは置換))
+PUT　リソースの更新など((更新というよりは置換))  update
 
-DELETE　リソースの削除
+DELETE　リソースの削除 destroy
 
-PATCH 既存のリソースを更新・変更・修正(リソースの部分置換)
+PATCH 既存のリソースを更新・変更・修正(リソースの部分置換) update
 
 
 
@@ -181,8 +181,80 @@ binding.pryかraiseで確認。blogAのコントロら参照
 ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 
 
-21 editアクションを記述 && edit.htmlを作成(new.htmlと同じものをコピー)
+21 editアクションを記述
 
 def edit
-
+  @blog = Blog.find(params[:id])
 end
+
+
+
+22 edit.htmlを作成(new.htmlと同じものをコピー) && index.html にeditのlink_toを作成
+
+#省略　index.html
+<td><%= link_to '詳細を確認する',blog_path(blog.id) %></td><!--showアクションのprefix確認後記入(blog)。(blog.id)とeachで個別の記事を表示  -->
+<td><%= link_to "ブログを編集する",edit_blog_path(blog.id) %></td> #追記
+</tr>
+<% end %>
+</table>
+
+
+23 updateアクション記述
+
+def update
+  @blog = Blog.find(params[:id])
+  if @blog.update(blog_params)
+    redirect_to blogs_path, notice: "ブログを編集しました！"
+  else
+    render :edit
+  end
+end
+
+24　共通処理のメソッド化 before_action,set_blogの追加
+
+class BlogsController < ApplicationController
+  #追記
+  before_action :set_blog, only: [:show, :edit, :update]#before_actionメソを追加。このメソッドは末端のset_blogに定義されたアクションを指定したメソッドに定義する。
+省略
+  private
+  def blog_params
+    params.require(:blog).permit(:title,:content)
+  end
+  #追記
+#共通処理のメソッド化set_blog,before_action
+  def set_blog #idをキーとして取得するメソッドを追加。下記と同じ記述は削除した。最上部のbeforeメソを確認
+    @blog = Blog.find(params[:id])
+  end
+end
+
+#show,edit,updateの重複部分を削除
+#before_actionとset_blogを追記
+
+25 パーシャルの作成　app/views/blogs/_form.html.erb作成 #パーシャルであることを宣言するためにファイルの頭に_をつける。
+
+#同ページに貼り付け
+<%= form_with(model: @blog, local: true) do |form| %>
+  <% if @blog.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= @blog.errors.count %>件のエラーがあります。</h2>
+      <ul>
+
+      <% @blog.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="blog_title">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+  <div class="blog_title">
+    <%= form.label :content %>
+    <%= form.text_field :content %>
+  </div>
+  <%= form.submit %>
+<% end %>
+
+<%= link_to "ブログ一覧画面にもどる", blogs_path %>

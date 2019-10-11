@@ -1,4 +1,5 @@
 class BlogsController < ApplicationController#cotrollerは間接的にDBに指示を出す。直接はmodel
+  before_action :set_blog, only: [:show, :edit, :update]#before_actionメソを追加。このメソッドは末端のset_blogに定義されたアクションを指定したメソッドに定義する。
 
   def index #indexでは一覧を表示
     @blogs = Blog.all #modelのblogファイルからレコードを全指定。そうする事で全ブログを取得。同時に同じ名前のviewファイルを探す。
@@ -35,18 +36,34 @@ class BlogsController < ApplicationController#cotrollerは間接的にDBに指�
   end
 
   def show
-  @blog = Blog.find(params[:id])
+  #@blog = Blog.find(params[:id])  末尾のset_blogメソで定義。edit,updateも同様
   #.find(params[:id])とすることでブログの個別のidを取得後、parameters(ハッシュ値)に変換 例   "blog" => {"title" => "太郎","content" => "今日は"}
   end
 
   def edit#記入
-    @blog = Blog.find(params[:id])
+    #@blog = Blog.find(params[:id])
+  end
 
+  def update
+    #@blog = Blog.find(params[:id])
+    #blog_paramsは下記のprivateメソッドで定義されたものである。
+    if @blog.update(blog_params)#blogがupdateされるとture.つまり、一覧画面が返される（prefix=blogs=index）
+      redirect_to blogs_path, notice: "ブログを編集しました！"#redirect=変える、書き変える
+    else
+      render :edit#falseであればeditページ（edit_blog）に返される render=する、与える
+    end
   end
 
   private #他のアクションがprivateメソッドより下に記述されるとblog_paramsに影響される
   #privateメソを指定することで他のクラスから呼び出されることを防ぐ
   def blog_params#createメソで指定
     params.require(:blog).permit(:title,:content)#createのstrongParametersを記述
+    #requireで対象のテーブル??を取得permitでレコードを指定
+  end#paramsはデータのハッシュ値を取得するものなので、titleとcontentを取得する
+
+
+#共通処理のメソッド化set_blog,before_action
+  def set_blog #idをキーとして取得するメソッドを追加。下記と同じ記述は削除した。最上部のbeforeメソを確認
+    @blog = Blog.find(params[:id])
   end
 end
