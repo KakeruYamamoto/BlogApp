@@ -258,3 +258,33 @@ end
 <% end %>
 
 <%= link_to "ブログ一覧画面にもどる", blogs_path %>
+
+
+<>
+26 共通化されたページを書き換え
+
+new.html.erb && edit.html.erb
+
+<h2>ブログを作成する</h2>                  # /
+
+  <%= render 'form' %>
+
+  #パーシャルで共通化 => _form.html.erb    renderでパーシャルを呼び出す
+
+27 destroyアクションの追加
+
+省略
+  before_action :set_blog, only: [:show, :edit, :update, :destroy]#追加
+  省略
+def destroy
+  @blog.destroy
+  redirect_to blogs_path, notice:"ブログを削除しました"
+end
+
+28 削除リンク　＆＆　確認ダイアログの表示data  && method: delete
+
+#<>/
+
+<td><%= link_to "ブログを編集する",edit_blog_path(blog.id), deta: { confirm: '本当に編集していいですか？'} %></td><!-- #data:{confirm~~~ で確認ダイアログを表示する。  -->
+<td><%= link_to "ブログを削除する" ,blog_path(blog.id),method: :delete,data: { confirm: '本当に削除していいですか？'} %></td><!-- link_toメソはデフォでHTTPメソのgetを呼び出すためそのメソッドをdeleteに変える必要がある。それがmethod:delete -->
+</tr>

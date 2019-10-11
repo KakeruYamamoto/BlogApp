@@ -1,6 +1,6 @@
 class BlogsController < ApplicationController#cotrollerは間接的にDBに指示を出す。直接はmodel
-  before_action :set_blog, only: [:show, :edit, :update]#before_actionメソを追加。このメソッドは末端のset_blogに定義されたアクションを指定したメソッドに定義する。
-
+  before_action :set_blog, only: [:show, :edit, :update, :destroy]#before_actionメソを追加。このメソッドは末端のset_blogに定義されたアクションを指定したメソッドに定義する。
+#destroyを追加。set_blgから値を取得
   def index #indexでは一覧を表示
     @blogs = Blog.all #modelのblogファイルからレコードを全指定。そうする事で全ブログを取得。同時に同じ名前のviewファイルを探す。
     #binding.pry #デバッグ indexにアクセスすると停止する
@@ -42,6 +42,11 @@ class BlogsController < ApplicationController#cotrollerは間接的にDBに指�
 
   def edit#記入
     #@blog = Blog.find(params[:id])
+  end
+
+  def destroy
+    @blog.destroy
+    redirect_to blogs_path, notice:"ブログを削除しました"
   end
 
   def update
