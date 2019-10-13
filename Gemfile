@@ -3,10 +3,11 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.3'
 
+# Core
 gem 'rails', '~> 5.2.3'
 
+# Middleware
 gem 'pg', '>= 0.18', '< 2.0'
-
 gem 'puma', '~> 3.11'
 
 gem 'sass-rails', '~> 5.0'
@@ -23,16 +24,18 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 
 
+
+
+
+
+
+
+
 gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
 
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-
-  #デバック用のgemを追記後ターミナルで bundle installコマンドでインストール。
-  gem 'pry-rails'
-  gem 'better_errors'
-  gem 'binding_of_caller'
 end
 
 group :development do
@@ -50,6 +53,10 @@ group :test do
   gem 'selenium-webdriver'
 
   gem 'chromedriver-helper'
+  #デバック用のgemを記述後ターミナルで bundle インストール。
+  gem 'pry-rails'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 
