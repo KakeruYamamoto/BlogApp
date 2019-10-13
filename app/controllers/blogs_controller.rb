@@ -22,6 +22,11 @@ class BlogsController < ApplicationController#cotrollerは間接的にDBに指�
     #Blog.create(blog_params)#下記のメソッドを指定.同じクラス内だと変数でなくても使用可能。
     #redirect_to new_blog_path
     @blog = Blog.new(blog_params)
+
+    if params[:back]
+        render :new
+      else
+
       if @blog.save #ブログの保存が成功した場合に
         #一覧画面（indexのprefixがblogs）へ遷移して下記のメッセージを表示。
         redirect_to blogs_path, notice:"ブログを作成しました！" #noticeはHTMLに記述しないと表示されない。
@@ -33,6 +38,7 @@ class BlogsController < ApplicationController#cotrollerは間接的にDBに指�
         #その関連したアクションやhtmlが呼び出されるがcreateはブログ作成の機能としての意図があるので
         #HTMLがないゆえにエラーが起るのでrenderでnew（新規作成画面）に返す。
       end
+    end
   end
 
   def show
@@ -42,6 +48,7 @@ class BlogsController < ApplicationController#cotrollerは間接的にDBに指�
 
   def edit#記入
     #@blog = Blog.find(params[:id])
+    #既存のデータを編集して、再保存する役割
   end
 
   def destroy
@@ -51,8 +58,9 @@ class BlogsController < ApplicationController#cotrollerは間接的にDBに指�
 
   def confirm
     @blog = Blog.new(blog_params)
+    render :new if @blog.invalid? #追記
   end
-  
+
   def update
     #@blog = Blog.find(params[:id])
     #blog_paramsは下記のprivateメソッドで定義されたものである。
@@ -74,5 +82,6 @@ class BlogsController < ApplicationController#cotrollerは間接的にDBに指�
 #共通処理のメソッド化set_blog,before_action
   def set_blog #idをキーとして取得するメソッドを追加。下記と同じ記述は削除した。最上部のbeforeメソを確認
     @blog = Blog.find(params[:id])
+    #上記のように行うことで各id値を取得。
   end
 end

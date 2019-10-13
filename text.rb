@@ -305,8 +305,8 @@ end
 <table>
 
 
-30 routes.rb記述　新規入力後、確認画面を挟み込む
-
+30 routes.rb記述　新規入力後、確認画面を挟み込む confirm作成
+/
 /routes.rb
 
 
@@ -320,3 +320,99 @@ Rails.application.routes.draw do
     end
   end
 end
+
+31 confirm.html.erb作成
+
+
+<h3>以下の内容で、送信する。</h3><!-- コンファームファイル -->  /
+
+<%= form_with(model: @blog, local: true) do |form| %>
+  <%= form.hidden_field :title %><!-- .hidden_fieldで入力フォームを生成せずnew veiwから来た値をそのままconfirmアクションに渡す-->
+  <%= form.hidden_field :content %>
+
+  <p>タイトル:<%= @blog.title %></p>
+  <p>本文:<%= @blog.content %></p>
+  <%= form.submit  "登録する" %>
+<% end %>
+
+<!-- `hidden_field`によりpostメソッド実行時に`form_with do ~ end`に設定した値をリクエストパラメータに設定できる。-->
+
+
+32 confirmアクション記述
+
+
+  def confirm
+    @blog = Blog.new(blog_params)
+  end
+
+32  _form.html.erb ファイル書き換え
+
+
+app/views/blogs/_form.html.erb
+
+
+<%= form_with(model: @blog, local: true ,url: confirm_blogs_path ) do |form| %>
+
+
+
+/<>
+33 app/helpers/blogs_helper.rb 記述
+
+module BlogsHelper
+  def choose_new_or_edit
+    if action_name == 'new' || action_name == 'confirm'|| action_name == 'create' #|| action_name == 'create'をさらに追加=>37参照
+      confirm_blogs_path
+    elsif action_name == 'edit'
+      blog_path
+    end
+  end
+end
+
+
+34 app/views/blogs/_form.html.erb
+
+url変更#ヘルパーメソッドしようするため
+<%= form_with(model: @blog, local: true ,url: choose_new_or_edit ) do |form| %>
+
+
+
+>
+35 app/views/blogs/confirm.html.erb link_to追記 && url 追記
+
+
+省略
+<%= form_with(model: @blog,  url: blogs_path,local: true) do |form| %> #--追記  url:blog_path --
+省略>>
+<%= form.submit  "登録する" %>                     >
+<%= form.submit "戻る", name: 'back' %>            >
+#<%= link_to "戻る", :back %> #追記  入力画面に戻る
+<% end %>
+
+
+36 createアクションにif追加  end注意
+
+def create
+    @blog = Blog.new(blog_params)
+    if params[:back] #追加
+      render :new
+    else
+      if @blog.save
+        redirect_to blogs_path, notice: "ブログを作成しました！"
+      else
+        render 'new'
+      end
+    end
+  end
+
+
+  37 app/helpers/blogs_helper.rb にaction_name == 'create'を追加（33参照）
+
+
+
+
+  38 controller追記
+
+  def confirm
+    @blog = Blog.new(blog_params)
+    render :new if @blog.invalid? #追記
+  end
