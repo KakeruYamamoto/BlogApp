@@ -57,7 +57,7 @@ class BlogsController < ApplicationController#cotrollerは間接的にDBに指�
   end
 
   def confirm
-    @blog = Blog.new(blog_params)
+    @blog = Blog.new(blog_params)#リクエストパラメーターを指定blog_paramsの事
     render :new if @blog.invalid? #追記
   end
 
@@ -75,6 +75,7 @@ class BlogsController < ApplicationController#cotrollerは間接的にDBに指�
   #privateメソを指定することで他のクラスから呼び出されることを防ぐ
   def blog_params#createメソで指定
     params.require(:blog).permit(:title,:content)#createのstrongParametersを記述
+    #"blog"=>{"title"=>"こんにちは！", "content"=>"ハロー！"}    上の記述はblogキーのtitle,contentカラムのみ取得の意味
     #requireで対象のテーブル??を取得permitでレコードを指定
   end#paramsはデータのハッシュ値を取得するものなので、titleとcontentを取得する
 
