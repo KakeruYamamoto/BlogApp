@@ -1,2 +1,21 @@
-<h1>Sessions#new</h1>
-<p>Find me in app/views/sessions/new.html.erb</p>
+<h1>Log in</h1>
+<%= form_with(scope: :session, url: sessions_path, local: true) do |f| %>
+
+  <%= f.label :email %>
+  <%= f.email_field :email %>
+
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+
+  <%= f.submit "Log in" %>
+<% end %>
+
+
+
+
+
+<%# 今回のログインフォームとユーザー登録フォームの最大の違いは、
+セッションにはSessionモデルというものがなく、そのため@userのようなインスタンス変数に相当するものもない点です。
+したがって、新しいセッションフォームを作成するときには、form_withヘルパーに追加の情報を独自に渡さなければいけません。
+
+モデルがない場合リソースの名前とそれに対応するURLを指定する必要があります。 %>
