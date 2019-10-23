@@ -1,7 +1,7 @@
-<%= form_with(model: @blog, local: true ,url: choose_new_or_edit ) do |form| %><!--パーシャルファイル  -->
-  <% if @blog.errors.any? %><!--url: confirm_blogs_path 追加  confiem作成時に-->
-    <div id="error_explanation"><!-- form_withはデフォで引数がレコードに存在しない場合にcreate。そうでない場合にupdateへ。したがってconfirmの場合は上記のようにオプションを与えて、送り先を変えねばならない。-->
-      <h2><%= @blog.errors.count %>件のエラーがあります。</h2><!--form_withにurlオプションを与えることでblogs#confirmを実行することができる。 追記   url:choose_new_or_edit変更  -->
+<%= form_with(model: @blog, local: true ,url: choose_new_or_edit ) do |form| %>
+  <% if @blog.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= @blog.errors.count %>件のエラーがあります。</h2>
       <ul>
 
       <% @blog.errors.full_messages.each do |msg| %>

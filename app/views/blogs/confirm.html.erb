@@ -1,15 +1,12 @@
 
-<h3>以下の内容で、送信する。</h3><!-- コンファームファイル -->
+<h3>以下の内容で、送信する。</h3>
 
-<%= form_with(model: @blog,  url: blogs_path,local: true) do |form| %><!--追記  url:blog_path -->
-  <%= form.hidden_field :title %><!-- .hidden_fieldで入力フォームを生成せずnew veiwから来た値をそのままconfirmアクションに渡す-->
+<%= form_with(model: @blog,  url: blogs_path,local: true) do |form| %>
+  <%= form.hidden_field :title %>
   <%= form.hidden_field :content %>
 
   <p>タイトル:<%= @blog.title %></p>
   <p>本文:<%= @blog.content %></p>
   <%= form.submit  "登録する" %>
   <%= form.submit "戻る", name: 'back' %>
-  <%# <%= link_to "戻る", :back %> <!--追記  入力画面に戻る --> 
-<% end %>
-
-<!-- `hidden_field`によりpostメソッド実行時に`form_with do ~ end`に設定した値をリクエストパラメータに設定できる。-->
+  <% end %>

@@ -4,6 +4,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.3'
 
 gem 'faker'#追記
+gem 'bcrypt', '3.1.11'#追記  => has_secure_passwordメソッド  *モデルuser参照
+
 
 # Core
 gem 'rails', '~> 5.2.3'

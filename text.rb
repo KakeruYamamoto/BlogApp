@@ -1,4 +1,17 @@
 
+タイムゾーン
+config/application
+    config.time_zone = 'Tokyo'  #タイムゾーンとはこのアプリケーションに設定される時間のことです
+    config.active_record.default_timezone = :local#created_atなどのデータが保存される際、その時間を参考にして時間データが保存されます
+
+
+
+
+
+
+
+
+
 #history
 
 HTTPメソッド　一覧
@@ -26,7 +39,7 @@ PATCH 既存のリソースを更新・変更・修正(リソースの部分置�
 #modelファイルにて、blog.rbを確認
 #modelコマンド入力後、DBのmigrateファイルも制作される。
 
-#rails g model User name:string email:text    =>  カラム:データ型  
+#rails g model User name:string email:text    =>  カラム:データ型
 
 8 db/migrate/20191000000_create_blogs => データ型：カラム名を記述
 
