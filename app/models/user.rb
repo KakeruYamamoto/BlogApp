@@ -2,8 +2,9 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { maximum: 30 }
   validates :email,presence: true, length: { maximum: 255 }, uniqueness: true,
                   format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
-  before_validation { email.downcase! }
-  has_secure_password
+  before_validation { email.downcase! }#ユーザーの値がバリデーション判定される前にemail属性を強制的に小文字に変換します。
+ #before_validationはコールバック
+  has_secure_password#このメソはパスワードをハッシュ化する。＊要準備
   validates :password, presence: true, length: { minimum: 6 }
 end
 
@@ -17,10 +18,13 @@ end
 #このhas_secure_passwordメソッドを使用するためにはpassword_digestというカラムが必要だということに注意してください。
 
 #もう一つhas_secure_passwordメソッドを使用するためにはbcryptと言うGemが必要  =>  gem 'bcrypt', '3.1.11'   =>  $ bundle install
+#さらにpasswodカラムが使える。例えばrails cでhas_secure_passwordを使用前とその後を比較するとわかりやすい。
 
 
 
 
+#コールバックとは
+# コールバックとは、オブジェクトのライフサイクル期間における特定の瞬間に呼び出されるメソッドのことです。コールバックを利用することで、Active Recordオブジェクトが作成/保存/更新/削除/検証/データベースからの読み込み、などのイベント発生時に常に実行されるコードを書くことができます。
 
 
 

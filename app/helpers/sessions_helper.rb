@@ -1,8 +1,9 @@
 module SessionsHelper
-  def current_user
+  def current_user#ログイン中のユーザを取得するメソッド
     @current_user ||= User.find_by(id: session[:user_id])
   end
-  def logged_in?
+  
+  def logged_in?#ユーザーがログインしていればtrue、その他ならfalseを返すメソッド
     current_user.present?
   end
 end
@@ -12,3 +13,6 @@ end
 #自己代入
 # 同じ  =>  @current_user || @current_user = User.find_by(id: session[:user_id])
 #@current_userが真の場合はそのままにし、偽の場合は右辺の値 User.find_by(id: session[:user_id]) を代入するというものです。
+
+
+#sessionhelperを全クラスで使用したいのであればcomtroller/application_controllerに設定する。

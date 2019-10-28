@@ -7,6 +7,10 @@ gem 'faker'#追記
 gem 'bcrypt', '3.1.11'#追記  => has_secure_passwordメソッド  *モデルuser参照
 
 
+gem 'carrierwave'#画像をアップロード用
+gem 'mini_magick'#アップロードした画像ファイルのサイズを変更するために使用
+
+
 # Core
 gem 'rails', '~> 5.2.3'
 
@@ -40,6 +44,9 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
 
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+
+  gem 'pry-rails'#デバック用のgemを記述後ターミナルで bundle インストール。
+  gem 'better_errors'
 end
 
 group :development do
@@ -57,9 +64,6 @@ group :test do
   gem 'selenium-webdriver'
 
   gem 'chromedriver-helper'
-  #デバック用のgemを記述後ターミナルで bundle インストール。
-  gem 'pry-rails'
-  gem 'better_errors'
   gem 'binding_of_caller'
 end
 

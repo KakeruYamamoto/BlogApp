@@ -1,0 +1,32 @@
+<%= form_with(model: feed, local: true, url:choose_new_or_edit) do |form| %><!-- model: feedとは、new.html.erbにある＜%= render 'form', feed: @feed %＞の記述にあるfeed -->
+  <% if feed.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(feed.errors.count, "error") %> prohibited this feed from being saved:</h2>
+
+      <ul>
+      <% feed.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<!--  -->
+  <div class="field">
+    <%= form.label :image %>
+    <!-- 確認画面から新規作成画面に戻った時に、 -->
+    <!-- アップロードした画像を表示させるための記述 -->
+    <%= image_tag(@feed.image.url) if @feed.image && @feed.image.url %>
+    <%= form.label :image %>
+    <%= form.file_field :image %><!-- フォームがtext_areaだったので、ファイル形式に変更 -->
+    <!-- ＜%= form.text_area :image %＞ -->
+  </div>
+
+  <div class="field">
+    <%= form.label :content %>
+    <%= form.text_area :content %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
