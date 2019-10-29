@@ -1,4 +1,5 @@
 class Blog < ApplicationRecord
+  belongs_to :user
 #validates:titleを設定することでtitleにバリデーションを設定。そしてpresence:tureで空の登録を禁止する。
     validates :title, presence: true #presenceは他にも種類がある下記参照 presenceは空でないことがture  テキストでは空だと保存を止めたいのでpresence
     # validates :content, length:{minimum:1} #一文字以上

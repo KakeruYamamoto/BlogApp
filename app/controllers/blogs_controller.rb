@@ -21,8 +21,8 @@ class BlogsController < ApplicationController#cotrollerは間接的にDBに指�
     #Blog.create(params.require(:blog).permit(:title,:content))#この書き方をstorong parametersという。blogのtitleとcontentをハッシュ値に変換
     #Blog.create(blog_params)#下記のメソッドを指定.同じクラス内だと変数でなくても使用可能。
     #redirect_to new_blog_path
-    @blog = Blog.new(blog_params)
-
+    # @blog = Blog.new(blog_params)
+    @blog = current_user.blogs.build(blog_params)#current_user.blogs.buildは「ログイン中のユーザーの、blogを、build(new)する」という意味
     if params[:back]
         render :new
       else
@@ -57,8 +57,9 @@ class BlogsController < ApplicationController#cotrollerは間接的にDBに指�
   end
 
   def confirm
-    @blog = Blog.new(blog_params)#リクエストパラメーターを指定blog_paramsの事
-    render :new if @blog.invalid? #追記
+    @blog = current_user.blogs.build(blog_params)#リクエストパラメータ(blog_params)
+    # @blog = Blog.new(blog_params)#リクエストパラメーターを指定blog_paramsの事
+    render :new if @blog.invalid? #falseであればnewを返す
   end
 
   def update

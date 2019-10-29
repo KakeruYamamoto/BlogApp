@@ -2,11 +2,18 @@
 <%= form_with(model: @feed, url: feeds_path, local: true) do |form| %>
   <!-- 確認画面でアップロードした画像を表示させるための記述 -->
   <%= image_tag(@feed.image.url) if @feed.image && @feed.image.url %>
-  <%= form.hidden_field :image_cache %>
+  <%= form.hidden_field :image_cache %><!-- hidden_fieldは情報を保持するが表示しない -->
+  <%= form.hidden_field :content %>
   <%= form.submit "投稿する" %>
 <% end %>
 
 <%= form_with(model:@feed, url:new_feed_path, local:true, method:"get") do |form| %>
-  <%= form.hidden_field :image_cache %>
+  <%= form.hidden_field :image_cache %><!-- そのイメージのキャっシュ -->
+  <%= form.hidden_field :content %>
+  <p>コメント:<%= @feed.content %></p>
   <%= form.submit "戻る", name: "back" %>
 <% end %>
+ <!-- -->
+
+
+<!-- `hidden_field`によりpostメソッド実行時に`form_with do ~ end`に設定した値をリクエストパラメータに設定できる。 -->

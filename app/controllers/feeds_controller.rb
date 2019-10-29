@@ -26,8 +26,8 @@ class FeedsController < ApplicationController
   end
 
   def create
-    @feed = Feed.new(feed_params)
-
+    # @feed = Feed.new(feed_params)
+    @feed = current_user.feeds.new(feed_params)#userを入力してくださいエラー。=> current_userオブジェクトに既成のfeedsメソを使うことで解決。
     respond_to do |format|
       if @feed.save
         format.html { redirect_to @feed, notice: 'Feed was successfully created.' }
