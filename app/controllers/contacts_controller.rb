@@ -27,7 +27,9 @@ class ContactsController < ApplicationController
     @contact = Contact.new(contact_params)
 
     respond_to do |format|
-      if @contact.save
+      if @contact.save   #なぜにContactMailer.contact_mailが呼び出せるか？継承もされていないのに
+        ContactMailer.contact_mail(@contact).deliver#これを追記することで、お問い合わせ内容が保存された時にContactMailerのcontact_mailメソッドを呼ぶ
+        # redirect_to contacts_path, notice: 'Contact was successfully created.'
         format.html { redirect_to @contact, notice: 'Contact was successfully created.' }
         format.json { render :show, status: :created, location: @contact }
       else
