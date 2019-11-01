@@ -8,7 +8,7 @@ gem 'bcrypt', '3.1.11'#追記  => has_secure_passwordメソッド  *モデルuse
 #has_secure_passwordメソッドを使用するためにはbcryptと言うGemが必要
 
 gem 'carrierwave'#画像をアップロード用
-gem 'mini_magick'#アップロードした画像ファイルのサイズを変更するために使用
+gem 'mini_magick'#アップロードした画像ファイルのサイズを調整してくれる
 
 
 # Core
