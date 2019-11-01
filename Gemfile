@@ -3,9 +3,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.3'
 
-gem 'faker'#追記
+gem 'faker'#ランダムな値を入れられるgem
 gem 'bcrypt', '3.1.11'#追記  => has_secure_passwordメソッド  *モデルuser参照
-
+#has_secure_passwordメソッドを使用するためにはbcryptと言うGemが必要
 
 gem 'carrierwave'#画像をアップロード用
 gem 'mini_magick'#アップロードした画像ファイルのサイズを変更するために使用

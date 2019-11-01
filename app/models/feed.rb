@@ -1,4 +1,7 @@
 class Feed < ApplicationRecord
+  has_many :favorites, dependent: :destroy#has_many :favoritesは、任意のBlogインスタンス(ここではFeed)のidと、Favoritesテーブルにあるのblog_id(feed_idのこと)の数字が一致しているものを全て取り出す
+  #dependent: :destroy とすることで、ブログが削除されると同時に、お気に入り情報も削除される
+  has_many :favorite_users, through: :favorites, source: :user
   mount_uploader :image, ImageUploader#imageカラムに、ImageUploaderを紐付けます。
   #mount_uploaderは、画像アップロードの宣言をしている
 #   上記の記述をすることで、feedsテーブルの中にあるimageカラムにimageUploaderという名前のアップローダ機能を追加することができます。

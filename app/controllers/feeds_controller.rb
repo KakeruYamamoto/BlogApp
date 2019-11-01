@@ -8,6 +8,10 @@ class FeedsController < ApplicationController
 
 
   def show
+    @favorite = current_user.favorites.find_by(feed_id: @feed.id)
+    #current_user.favorites により、現在ログインしているユーザーがお気に入り登録している全レコードを抽出します。
+    #さらに find_by(blog_id: @blog.id) で、その全抽出したFavoriteのレコードの中に、このブログのidが存在していれば、そのFavoriteのレコードを@favoriteに代入します
+    #
   end
 
   def new

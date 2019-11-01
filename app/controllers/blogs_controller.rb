@@ -44,6 +44,9 @@ class BlogsController < ApplicationController#cotrollerは間接的にDBに指�
   def show
   #@blog = Blog.find(params[:id])  末尾のset_blogメソで定義。edit,updateも同様
   #.find(params[:id])とすることでブログの個別のidを取得後、parameters(ハッシュ値)に変換 例   "blog" => {"title" => "太郎","content" => "今日は"}
+    @favorite = current_user.favorites.find_by(blog_id: @blog.id)
+    #current_user.favorites により、現在ログインしているユーザーがお気に入り登録している全レコード（user_idとblog_idの入ったFavoriteのレコード）を抽出
+    #find_by(blog_id: @blog.id) で、その全抽出したFavoriteのレコードの中に、このブログのidが存在していれば（このブログがお気に入りに登録されていれば）、そのFavoriteのレコード（user_idとblog_id）を@favoriteに代入
   end
 
   def edit#記入

@@ -1,5 +1,7 @@
 class User < ApplicationRecord
-   has_many :blogs
+  has_many :favorites, dependent: :destroy
+  #has_many :favoritesは任意のUserインスタンスのidと、Favoritesテーブルにあるのuser_idの数字が一致しているものを全て取り出す
+  has_many :blogs
   has_many :feeds
   validates :name, presence: true, length: { maximum: 30 }
   validates :email,presence: true, length: { maximum: 255 }, uniqueness: true,
