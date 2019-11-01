@@ -40,4 +40,21 @@ end
 
 <p>content: <%= @contact.content %></p>
 
-6
+6　createに追記
+
+def create
+  @contact = Contact.new(contact_params)
+
+  respond_to do |format|
+    if @contact.save   #なぜにContactMailer.contact_mailが呼び出せるか？継承もされていないのに
+      ContactMailer.contact_mail(@contact).deliver#これを追記することで、お問い合わせ内容が保存された時にContactMailerのcontact_mailメソッドを呼ぶ
+      # redirect_to contacts_path, notice: 'Contact was successfully created.'
+      format.html { redirect_to @contact, notice: 'Contact was successfully created.' }
+      format.json { render :show, status: :created, location: @contact }
+    else
+
+7 gem記述＆インスト
+
+group :development do
+  gem 'letter_opener_web'
+end

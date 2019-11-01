@@ -51,6 +51,8 @@ end
 
 group :development do
 
+  gem 'letter_opener_web'#ブラウザ上でメール送信内容を確認することができるgem
+
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
 
