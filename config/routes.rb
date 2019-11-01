@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+  #上記の記述で  /letter_openerのURLにアクセスした時、下記のようなメール送信BOXが出現
   resources :contacts
   root to: 'sessions#new'
   resources :favorites, only: [:create, :destroy]

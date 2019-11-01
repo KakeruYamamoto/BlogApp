@@ -58,3 +58,10 @@ def create
 group :development do
   gem 'letter_opener_web'
 end
+
+
+
+8 config/routes.rb
+
+# 省略
+mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
