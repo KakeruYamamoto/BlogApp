@@ -52,6 +52,7 @@ end
 group :development do
 
   gem 'letter_opener_web'#ブラウザ上でメール送信内容を確認することができるgem
+#letter_opener_webは開発環境でのみ使用するので、groupブロックで囲むことによって、開発環境のみ適用するように定義
 
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'

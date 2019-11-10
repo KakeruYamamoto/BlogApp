@@ -65,3 +65,17 @@ end
 
 # 省略
 mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+
+
+
+9  開発環境でメール送信の際、letter_opener_webを使用するように設定
+
+config/environments/development.rb
+
+
+# 省略
+config.action_mailer.default_url_options = { host: 'localhost:3000' }
+config.action_mailer.delivery_method = :letter_opener_web#開発環境でメール送信の際、letter_opener_webを使用するように設定
+
+
+＊ここでメールが届くか確認しましょう。
