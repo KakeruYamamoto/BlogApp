@@ -1,4 +1,5 @@
 class Blog < ApplicationRecord
+  has_many :comments, dependent: :destroy #dependent: :destroyの記述でblogのレコードが削除された時にそれに紐ずいているcommentレコードも削除する
   has_many :favorites, dependent: :destroy
   has_many :favorite_users, through: :favorites, source: :user#ブログをお気に入りした人の実際の情報の一覧を取得
            #favorite_users というメソッドにより、 blogのidと一致するblog_idを持つfavoritesテーブルのレコードを全て取り出します。その上でそのfavoritesテーブルのレコードがもっているuser_idの数字と同じidを持つuserを全件取得できるようになる
