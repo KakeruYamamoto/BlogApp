@@ -1,0 +1,4 @@
+$("#comments_area").html("<%= j(render 'comments/index', { comments: @comment.blog.comments, blog: @comment.blog }) %>")
+$("textarea").val('')
+
+// 'comments/index'から取得したHTML情報で$("#comments_area")の中身を書き換える、という意味
