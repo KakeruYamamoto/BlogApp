@@ -42,6 +42,8 @@ class BlogsController < ApplicationController#cotrollerは間接的にDBに指�
   end
 
   def show
+    @comments = @blog.comments
+    @comment = @blog.comments.build
   #@blog = Blog.find(params[:id])  末尾のset_blogメソで定義。edit,updateも同様
   #.find(params[:id])とすることでブログの個別のidを取得後、parameters(ハッシュ値)に変換 例   "blog" => {"title" => "太郎","content" => "今日は"}
     @favorite = current_user.favorites.find_by(blog_id: @blog.id)
