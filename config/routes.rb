@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'relationships/create'
+  get 'relationships/destroy'
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   #上記の記述で  /letter_openerのURLにアクセスした時、下記のようなメール送信BOXが出現
   resources :relationships, only: [:create, :destroy]
