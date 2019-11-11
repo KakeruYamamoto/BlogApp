@@ -5,6 +5,10 @@ class User < ApplicationRecord
   has_many :passive_relationships, foreign_key: 'followed_id', class_name: 'Relationship', dependent: :destroy
   #上記の二つはあえて慣習的な名前ではない(モデル名と同じにすること)。それぞれを区別するため
 
+  has_many :following, through: :active_relationships, source: :followed#フォローされた人
+
+  has_many :followers, through: :passive_relationships, source: :follower
+
   has_many :favorites, dependent: :destroy
   #has_many :favoritesは任意のUserインスタンスのidと、Favoritesテーブルにあるのuser_idの数字が一致しているものを全て取り出す
   has_many :blogs
