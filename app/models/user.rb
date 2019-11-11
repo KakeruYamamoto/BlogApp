@@ -1,4 +1,10 @@
 class User < ApplicationRecord
+  has_many :active_relationships, foreign_key: 'follower_id', class_name: 'Relationship', dependent: :destroy
+  #class_name: 'Relationship' というオプションを記述しないとアソシエーション名と同じ名前のテーブル があるものだとみなし、そのテーブルとアソシエーションをしようとしてしまう
+  #今回は下記も同様、そんなテーブルは存在しないので、テーブルに紐ずくモデル名をオプションとして記載することで、モデル名とテーブル名が違う場合でもそのアソシエーション名を期待するモデルと紐ずけてくれる
+  has_many :passive_relationships, foreign_key: 'followed_id', class_name: 'Relationship', dependent: :destroy
+  #上記の二つはあえて慣習的な名前ではない(モデル名と同じにすること)。それぞれを区別するため
+
   has_many :favorites, dependent: :destroy
   #has_many :favoritesは任意のUserインスタンスのidと、Favoritesテーブルにあるのuser_idの数字が一致しているものを全て取り出す
   has_many :blogs
