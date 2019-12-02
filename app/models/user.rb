@@ -18,7 +18,7 @@ class User < ApplicationRecord
                   format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
   before_validation { email.downcase! }#ユーザーの値がバリデーション判定される前にemail属性を強制的に小文字に変換します。
  #before_validationはコールバック
-  has_secure_password#このメソはパスワードをハッシュ化する。＊要準備
+  has_secure_password#このメソはパスワードをハッシュ化する。＊要準備  このメソッドを使用するには対象のテーブルのカラム名をpassword_digestすることとgemのbcryptが必要
   validates :password, presence: true, length: { minimum: 6 }
 end
 
