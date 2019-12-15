@@ -47,6 +47,7 @@ group :development, :test do
 
   gem 'pry-rails'#デバック用のgemを記述後ターミナルで bundle インストール。
   gem 'better_errors'
+  gem "rails-erd"
 end
 
 group :development do
