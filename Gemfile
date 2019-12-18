@@ -45,9 +45,11 @@ group :development, :test do
 
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 
-  gem 'pry-rails'#デバック用のgemを記述後ターミナルで bundle インストール。
-  gem 'better_errors'
-  gem "rails-erd"
+  gem 'pry-rails'#binding.pryが使用できる。<% binding.pry %> とする事でviewでも使用できる。  デバック用のgemを記述後ターミナルで bundle インストール。
+  gem 'better_errors'#better_errorsでエラー画面にデバッグ機能を追加することができる。raiseを使うと処理を止めることができる。（機能はbinding.pryと同じ）
+  gem 'binding_of_caller'#binding_of_callerとbetter_errorsを両方インストする事でエラー画面にデバッグ機能を実装できる
+
+  gem "rails-erd"#ER図を作ってくれる $bundle exec erd
 end
 
 group :development do
