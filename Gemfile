@@ -50,6 +50,26 @@ group :development, :test do
   gem 'binding_of_caller'#binding_of_callerとbetter_errorsを両方インストする事でエラー画面にデバッグ機能を実装できる
 
   gem "rails-erd"#ER図を作ってくれる $bundle exec erd
+
+  #Rspec系gem
+  gem 'rspec-rails'#RSpecを使用するために、必要なgem。
+  gem 'spring-commands-rspec'#bin/rspecのコマンドを実行するときに必要になるGem => テストを高速化させる（このgemがなくてもコマンドrailsでも動く）
+  gem 'factory_bot_rails'#factory_botを使用することで、フィクスチャ（テストで使用するデータ）を作成する際に、それぞれのデータを関連付けることができるようになります。
+  gem 'faker'#フィクスチャを作成するときに、名前などを存在していそうな値にしてくれます。
+  gem 'launchy'#Capybaraでテスト中に、save_and_open_page というメソッドで現在ページを確認できるようにしてくれます。(オブジェクト指向設計入門でも使用)
+  gem 'capybara'#アプリケーション操作をRubyで設定して、あたかもユーザがアプリケーションを使っているかのように様々なページを遷移させ、その際にどこか不具合がないか調べてくれます。
+  gem 'selenium-webdriver'#複数のテストを並行して実施できるようにしてくれます。
+#記述後次のコマンド
+#$ bundle install
+#$ bundle exec spring binstub rspec
+#$ rails generate rspec:install
+
+#テキスト（https://diver.diveintocode.jp/curriculums/642）に従いファイル作成後
+#$ bin/rspec で動作確認
+
+
+  gem 'webdrivers'
+
 end
 
 group :development do
@@ -66,7 +86,7 @@ end
 
 group :test do
 
-  gem 'capybara', '>= 2.15'
+  # gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
 
   gem 'chromedriver-helper'
